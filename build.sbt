@@ -5,13 +5,14 @@ version := "2.3.1"
 scalaVersion := "2.12.4"
 parallelExecution in Test := false
 
+lazy val gatlingVersion = "2.3.1"
 
 import com.trueaccord.scalapb.compiler.Version.scalapbVersion
 
 lazy val root = project.in(file("."))
   .settings(libraryDependencies ++= Seq(
-    "io.gatling" % "gatling-test-framework" % "2.3.1" % "provided,test" exclude("org.asynchttpclient", "async-http-client"),
-    "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.3.1" % "provided,test" exclude("org.asynchttpclient", "async-http-client"),
+    "io.gatling" % "gatling-test-framework" % gatlingVersion % "provided,test" exclude("org.asynchttpclient", "async-http-client"),
+    "io.gatling.highcharts" % "gatling-charts-highcharts" % gatlingVersion % "provided,test" exclude("org.asynchttpclient", "async-http-client"),
 
     "com.trueaccord.scalapb" %% "scalapb-runtime" % scalapbVersion % "protobuf",
     "com.trueaccord.scalapb" %% "scalapb-runtime-grpc" % scalapbVersion,
