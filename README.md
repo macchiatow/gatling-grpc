@@ -1,4 +1,4 @@
-# Gatling-GRPC [![Build Status](https://travis-ci.org/macchiatow/gatling-grpc.svg?branch=master)](https://github.com/macchiatow/gatling-grpc)
+# Gatling-GRPC [![Build Status](https://travis-ci.org/macchiatow/gatling-grpc.svg?branch=master)](https://travis-ci.org/macchiatow/gatling-grpc)
 
 An unofficial [Gatling](http://gatling.io/) 2.3.1 stress test plugin
 for [gRPC](https://grpc.io) 1.11.0 protocol.
