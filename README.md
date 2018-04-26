@@ -24,24 +24,12 @@ change the following line in [`build.sbt`](build.sbt):
 lazy val gatlingVersion = "2.3.1"
 ```
 
-### Putting the jar file to lib directory
-
-Put the jar file to `lib` directory in Gatling:
-
-    $ cp target/scala-2.12/gatling-grpc-assembly-*.jar /path/to/gatling-charts-highcharts-bundle-2.2.*/lib
-
-###  Creating a simulation file
-
-    $ cd /path/to/gatling-charts-highcharts-bundle-2.2.*
-    $ vi user-files/simulations/BasicGrpcSimulation.scala
-
-You can find sample simulation files in the [test directory](src/test/scala/me/macchiatow/gatling/grpc).
-
 ### Running a stress test
 
-run a stress test via shell executor:
+run a stress test within docker container:
 
-    $ bin/gatling.sh
+    $ docker build  -t gatling-grpc .
+    $ docker run -it gatling-grpc:latest
     
 or via gatling-sbt plugin
     
