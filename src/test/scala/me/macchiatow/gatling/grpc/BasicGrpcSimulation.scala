@@ -39,5 +39,5 @@ class BasicGrpcSimulation extends Simulation {
         }
     )
 
-  setUp(scn.inject(constantUsersPerSec(1000) during (5 seconds))).protocols(protocol)
+  setUp(scn.inject(constantUsersPerSec(100) during (5 seconds))).protocols(protocol)
 }
