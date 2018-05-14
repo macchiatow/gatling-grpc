@@ -12,14 +12,14 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.language.postfixOps
 
 
-class BasicGrpcSimulation extends Simulation {
+class AsyncGrpcSimulation extends Simulation {
 
   val port: Int = new ServerSocket(0).getLocalPort
 
   ServerBuilder
     .forPort(port)
     .addService(
-      FundsServiceGrpc.bindService((_: FundsRequest) => Future.successful(FundsResponse(300)),ExecutionContext.global))
+      FundsServiceGrpc.bindService((_: FundsRequest) => Future.successful(FundsResponse(300)), ExecutionContext.global))
     .build()
     .start()
 
@@ -29,11 +29,11 @@ class BasicGrpcSimulation extends Simulation {
 
   val protocol: GrpcProtocol = grpc.host("localhost").port(port)
 
-  private val scn = scenario("BasicGrpcSimulation").
+  private val scn = scenario("AsyncGrpcSimulation").
     feed(feeder).
     exec(
       grpc("request").
-        blockingUnaryCall(FundsServiceGrpc.METHOD_FUNDS, "${fundsRequest}").
+        asyncUnaryCall(FundsServiceGrpc.METHOD_FUNDS, "${fundsRequest}").
         check { response =>
           response.funds > 200
         }

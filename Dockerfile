@@ -13,9 +13,9 @@ WORKDIR  /opt/gatling
 
 COPY target/scala-${SCALA_VERSION}/gatling-grpc-assembly-*.jar ./lib
 COPY test-spec/target/scala-${SCALA_VERSION}/test-fund-service-assembly-*.jar ./lib
-COPY src/test/scala/me/macchiatow/gatling/grpc/BasicGrpcSimulation.scala ./user-files/simulations
+COPY src/test/scala/me/macchiatow/gatling/grpc/*.scala ./user-files/simulations/
 
-# thess rm only required because libs from test-fund-service-assembly-*.jar conflict with gatling provided
+# these rm only required because libs from test-fund-service-assembly-*.jar conflict with gatling provided
 # when you use gatling-grpc-assembly-*.jar without mocked gRPC service from test-fund-service, no error should occur
 RUN rm ./lib/netty-*
 RUN rm ./lib/async-http-client*
