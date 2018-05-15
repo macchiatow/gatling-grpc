@@ -26,10 +26,19 @@ lazy val gatlingVersion = "2.3.1"
 
 ### Running a stress test
 
-run a stress test within docker container:
+#### Using Docker
 
-    $ docker build -t gatling-grpc .
-    $ docker run -it gatling-grpc:latest
+- How to run a stress test within docker container?
+
+        $ docker build -t gatling-grpc .
+        $ docker run -it gatling-grpc:latest
+
+- How to look test result?
+
+        # copy test result from container to results dir
+        $ docker cp $(docker ps -a | grep 'gatling-grpc:latest' | head -n1 | awk '{print $NF}'):/opt/gatling/results .
+
+#### Using sbt
     
 or via gatling-sbt plugin
     
