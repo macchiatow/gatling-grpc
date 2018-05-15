@@ -36,8 +36,7 @@ val pbSettings = Seq(
     "com.thesamet.scalapb" %% "scalapb-runtime-grpc" % scalapbVersion
   ),
   PB.targets in Compile := Seq(
-    PB.gens.java -> (sourceManaged in Compile).value,
-    scalapb.gen(javaConversions = true) -> (sourceManaged in Compile).value
+    scalapb.gen(flatPackage = true) -> (sourceManaged in Compile).value
   )
 )
 
