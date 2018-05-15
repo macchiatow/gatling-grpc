@@ -9,7 +9,7 @@ val commonSettings = Seq(
   version := gatlingVersion
 )
 
-import com.trueaccord.scalapb.compiler.Version.scalapbVersion
+import scalapb.compiler.Version.scalapbVersion
 
 lazy val `test-spec` = project.in(file("test-spec"))
   .settings(pbSettings, commonSettings, assemblySettings)
@@ -32,8 +32,8 @@ lazy val root = project.in(file("."))
 
 val pbSettings = Seq(
   libraryDependencies ++= Seq(
-    "com.trueaccord.scalapb" %% "scalapb-runtime" % scalapbVersion % "protobuf",
-    "com.trueaccord.scalapb" %% "scalapb-runtime-grpc" % scalapbVersion
+    "com.thesamet.scalapb" %% "scalapb-runtime" % scalapbVersion % "protobuf",
+    "com.thesamet.scalapb" %% "scalapb-runtime-grpc" % scalapbVersion
   ),
   PB.targets in Compile := Seq(
     PB.gens.java -> (sourceManaged in Compile).value,
