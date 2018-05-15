@@ -35,11 +35,8 @@ lazy val gatlingVersion = "2.3.1"
 
 - How to look test result?
 
-        # firstly get container name
-        $ docker ps -a | grep 'gatling-grpc:latest' | awk '{print $13}'
-        # assume container name is romantic_hawking
-        # secondly copy test result from container
-        $docker cp romantic_hawking:/opt/gatling/results .
+        # copy test result from container to results dir
+        $ docker cp $(docker ps -a | grep 'gatling-grpc:latest' | head -n1 | awk '{print $NF}'):/opt/gatling/results .
 
 #### Using sbt
     
