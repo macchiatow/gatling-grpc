@@ -21,4 +21,4 @@ RUN rm ./lib/netty-*
 RUN rm ./lib/async-http-client*
 RUN rm -rf ./user-files/simulations/computerdatabase
 
-ENTRYPOINT ["sh", "/opt/gatling/bin/gatling.sh"]
+ENTRYPOINT ["sh", "/opt/gatling/bin/gatling.sh", "-m"]
