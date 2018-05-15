@@ -46,10 +46,19 @@ class GrpcAction[ReqT <: GenM, ResT <: GenM](grpcRequestAttributes: GrpcRequestA
   def doCall(req: ReqT, doAsync: Boolean): Future[ResT] = {
     if (doAsync) {
       guavaFuture2ScalaFuture(
-        ClientCalls.futureUnaryCall(grpcRequestAttributes.channel.newCall(grpcRequestAttributes.methodDescriptor, CallOptions.DEFAULT), req))
+        ClientCalls.futureUnaryCall(
+          grpcRequestAttributes.channel.newCall(grpcRequestAttributes.methodDescriptor, CallOptions.DEFAULT),
+          req
+        )
+      )
     } else {
       Try {
-        ClientCalls.blockingUnaryCall(grpcRequestAttributes.channel, grpcRequestAttributes.methodDescriptor, CallOptions.DEFAULT, req)
+        ClientCalls.blockingUnaryCall(
+          grpcRequestAttributes.channel,
+          grpcRequestAttributes.methodDescriptor,
+          CallOptions.DEFAULT,
+          req
+        )
       } match {
         case scala.util.Success(response) => Future.successful(response)
         case scala.util.Failure(e) => Future.failed(e)

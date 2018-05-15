@@ -8,7 +8,8 @@ object GrpcProtocolBuilder {
 
   implicit def toGrpcProtocol(builder: GrpcProtocolBuilder): GrpcProtocol = builder.build()
 
-  def apply(configuration: GatlingConfiguration): GrpcProtocolBuilder = GrpcProtocolBuilder(GrpcProtocol(configuration))
+  def apply(configuration: GatlingConfiguration): GrpcProtocolBuilder =
+    GrpcProtocolBuilder(GrpcProtocol(configuration))
 }
 
 case class GrpcProtocolBuilder(grpcProtocol: GrpcProtocol) {
