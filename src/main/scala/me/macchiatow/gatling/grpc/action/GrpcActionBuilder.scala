@@ -18,10 +18,12 @@ case class GrpcActionBuilder[ReqT <: GenM, ResT <: GenM](requestName: Expression
                                                          checks: Seq[ResT => Boolean] = Seq.empty)
                                                         (implicit reqT: ClassTag[ReqT]) extends ActionBuilder {
 
-  def blockingUnaryCall(methodDescriptor: MethodDescriptor[ReqT, ResT], request: Expression[GenM]): GrpcActionBuilder[ReqT, ResT] =
+  def blockingUnaryCall(methodDescriptor: MethodDescriptor[ReqT, ResT],
+                        request: Expression[GenM]): GrpcActionBuilder[ReqT, ResT] =
     copy(methodDescriptor = methodDescriptor, request = request, doAsync = false)
 
-  def asyncUnaryCall(methodDescriptor: MethodDescriptor[ReqT, ResT], request: Expression[GenM]): GrpcActionBuilder[ReqT, ResT] =
+  def asyncUnaryCall(methodDescriptor: MethodDescriptor[ReqT, ResT],
+                     request: Expression[GenM]): GrpcActionBuilder[ReqT, ResT] =
     copy(methodDescriptor = methodDescriptor, request = request, doAsync = true)
 
   def check(p: (ResT => Boolean)*): GrpcActionBuilder[ReqT, ResT] = copy(checks = checks ++ p)
