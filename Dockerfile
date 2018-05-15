@@ -21,5 +21,4 @@ RUN rm ./lib/netty-*
 RUN rm ./lib/async-http-client*
 RUN rm -rf ./user-files/simulations/computerdatabase
 
-# default run BlockingGrpcSimulation using mute mode
-ENTRYPOINT ["sh", "/opt/gatling/bin/gatling.sh", "-s me.macchiatow.gatling.grpc.BlockingGrpcSimulation", "-m"]
+ENTRYPOINT ["sh", "/opt/gatling/bin/gatling.sh -m"]
