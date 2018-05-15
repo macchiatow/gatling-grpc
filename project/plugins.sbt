@@ -7,4 +7,4 @@ addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.1")
 
 resolvers += "Bintray sbt plugin releases" at "http://dl.bintray.com/sbt/sbt-plugin-releases/"
 
-libraryDependencies += "com.trueaccord.scalapb" %% "compilerplugin" % "0.6.7"
+libraryDependencies += "com.thesamet.scalapb" %% "compilerplugin" % "0.7.4"

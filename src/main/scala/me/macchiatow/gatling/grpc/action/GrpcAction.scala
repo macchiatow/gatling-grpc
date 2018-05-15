@@ -1,7 +1,7 @@
 package me.macchiatow.gatling.grpc.action
 
-import com.trueaccord.scalapb.grpc.Grpc.guavaFuture2ScalaFuture
-import com.trueaccord.scalapb.{GeneratedMessage => GenM}
+import scalapb.grpc.Grpc.guavaFuture2ScalaFuture
+import scalapb.{GeneratedMessage => GenM}
 import io.gatling.commons.stats.{KO, OK}
 import io.gatling.commons.util.ClockSingleton.nowMillis
 import io.gatling.commons.validation.Validation

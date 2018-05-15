@@ -1,6 +1,6 @@
 package me.macchiatow.gatling.grpc
 
-import com.trueaccord.scalapb.{GeneratedMessage => GenM}
+import scalapb.{GeneratedMessage => GenM}
 import io.gatling.core.config.GatlingConfiguration
 import io.gatling.core.session.Expression
 import me.macchiatow.gatling.grpc.action.GrpcActionBuilder
