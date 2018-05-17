@@ -12,7 +12,6 @@ RUN mv gatling-charts-highcharts-bundle-${GATLING_VERSION} gatling
 WORKDIR  /opt/gatling
 
 COPY target/scala-${SCALA_VERSION}/gatling-grpc-assembly-*.jar ./lib
-COPY test-spec/target/scala-${SCALA_VERSION}/test-fund-service-assembly-*.jar ./lib
 COPY src/test/scala/me/macchiatow/gatling/grpc/*.scala ./user-files/simulations/
 
 # these rm only required because libs from test-fund-service-assembly-*.jar conflict with gatling provided

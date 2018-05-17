@@ -10,14 +10,14 @@ option (scalapb.options) = {
 };
 
 service FundsService {
-  rpc funds (FundsRequest) returns (FundsResponse) {
-  }
+    rpc funds (FundsRequest) returns (FundsResponse) {
+    }
 }
 
 message FundsRequest {
-  repeated string address = 1;
+    repeated string address = 1;
 }
 
 message FundsResponse {
-  required int64 funds = 1;
+    required int64 funds = 1;
 }

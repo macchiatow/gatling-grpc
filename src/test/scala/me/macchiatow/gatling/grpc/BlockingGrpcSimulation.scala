@@ -16,6 +16,10 @@ class BlockingGrpcSimulation extends Simulation {
 
   val port: Int = new ServerSocket(0).getLocalPort
 
+  /*
+   * For running test, we need to start funds service.
+   * If you have running service, you can get rid of it.
+   */
   ServerBuilder
     .forPort(port)
     .addService(

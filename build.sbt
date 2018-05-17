@@ -11,24 +11,20 @@ val commonSettings = Seq(
 
 import scalapb.compiler.Version.scalapbVersion
 
-lazy val `test-spec` = project.in(file("test-spec"))
-  .settings(pbSettings, commonSettings, assemblySettings)
-  .settings(name := "test-fund-service")
-  .settings(libraryDependencies ++= Seq(
-    "io.grpc" % "grpc-netty" % "1.11.0"
-  ))
-
-
 lazy val root = project.in(file("."))
-  .settings(pbSettings, commonSettings, assemblySettings)
+  .settings(pbSettings, commonSettings, grpcSettings, assemblySettings)
   .settings(
     libraryDependencies ++= Seq(
       "io.gatling" % "gatling-test-framework" % gatlingVersion % "provided,test"  exclude("org.asynchttpclient", "async-http-client"),
       "io.gatling.highcharts" % "gatling-charts-highcharts" % gatlingVersion % "provided,test"  exclude("org.asynchttpclient", "async-http-client"),
     ))
-  .aggregate(`test-spec`)
-  .dependsOn(`test-spec` % Test)
   .enablePlugins(GatlingPlugin)
+
+val grpcSettings = Seq(
+  libraryDependencies ++= Seq(
+    "io.grpc" % "grpc-netty" % "1.11.0"
+  )
+)
 
 val pbSettings = Seq(
   libraryDependencies ++= Seq(
