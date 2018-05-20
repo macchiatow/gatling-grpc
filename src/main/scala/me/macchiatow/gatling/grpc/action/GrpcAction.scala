@@ -21,23 +21,27 @@ import scala.language.postfixOps
 import scala.reflect.ClassTag
 import scala.util.{Failure, Success, Try}
 
-class GrpcAction[ReqT <: GenM, ResT <: GenM](grpcRequestAttributes: GrpcRequestAttributes[ReqT, ResT],
-                                             checks: Seq[ResT => Boolean],
-                                             coreComponents: CoreComponents,
-                                             throttled: Boolean,
-                                             val next: Action)(implicit reqTag: ClassTag[ReqT])
-  extends ExitableAction with NameGen {
+class GrpcAction[ReqT <: GenM, ResT <: GenM](
+    grpcRequestAttributes: GrpcRequestAttributes[ReqT, ResT],
+    checks: Seq[ResT => Boolean],
+    coreComponents: CoreComponents,
+    throttled: Boolean,
+    val next: Action)(implicit reqTag: ClassTag[ReqT])
+    extends ExitableAction
+    with NameGen {
 
   override def statsEngine: StatsEngine = coreComponents.statsEngine
 
   override def name: String = genName("grpcRequest")
 
-  def validateRequest[T](session: Session)(implicit reqT: ClassTag[T]): Validation[T] = {
+  def validateRequest[T](session: Session)(
+      implicit reqT: ClassTag[T]): Validation[T] = {
     grpcRequestAttributes.request(session) flatMap {
       case req: T =>
         io.gatling.commons.validation.Success(req)
       case req =>
-        val err = s"Feeder type mismatch: required $reqT, but found ${req.getClass}"
+        val err =
+          s"Feeder type mismatch: required $reqT, but found ${req.getClass}"
         statsEngine.reportUnbuildableRequest(session, name, err)
         io.gatling.commons.validation.Failure(err)
     }
@@ -47,7 +51,9 @@ class GrpcAction[ReqT <: GenM, ResT <: GenM](grpcRequestAttributes: GrpcRequestA
     if (doAsync) {
       guavaFuture2ScalaFuture(
         ClientCalls.futureUnaryCall(
-          grpcRequestAttributes.channel.newCall(grpcRequestAttributes.methodDescriptor, CallOptions.DEFAULT),
+          grpcRequestAttributes.channel.newCall(
+            grpcRequestAttributes.methodDescriptor,
+            CallOptions.DEFAULT),
           req
         )
       )
@@ -61,35 +67,36 @@ class GrpcAction[ReqT <: GenM, ResT <: GenM](grpcRequestAttributes: GrpcRequestA
         )
       } match {
         case scala.util.Success(response) => Future.successful(response)
-        case scala.util.Failure(e) => Future.failed(e)
+        case scala.util.Failure(e)        => Future.failed(e)
       }
     }
   }
 
   override def execute(session: Session): Unit = recover(session) {
     validateRequest(session) flatMap { req =>
-
       grpcRequestAttributes.requestName(session) map { requestName =>
         val requestStartDate = nowMillis
 
         doCall(req, grpcRequestAttributes.doAsync) transform {
-          case Success(response) if checks.forall(_ (response)) => scala.util.Success(response)
+          case Success(response) if checks.forall(_(response)) =>
+            scala.util.Success(response)
           case _: Success[ResT] => Failure(new AssertionError("check failed"))
-          case failure => failure
+          case failure          => failure
         } onComplete { t =>
           val requestEndDate = nowMillis
 
           val result = t.toEither
-          statsEngine.logResponse(
-            session,
-            requestName,
-            ResponseTimings(requestStartDate, requestEndDate),
-            if (result.isRight) OK else KO,
-            None,
-            result.left.toOption.map(_.getMessage))
+          statsEngine.logResponse(session,
+                                  requestName,
+                                  ResponseTimings(requestStartDate,
+                                                  requestEndDate),
+                                  if (result.isRight) OK else KO,
+                                  None,
+                                  result.left.toOption.map(_.getMessage))
 
           if (throttled) {
-            coreComponents.throttler.throttle(session.scenario, () => next ! session)
+            coreComponents.throttler.throttle(session.scenario,
+                                              () => next ! session)
           } else {
             next ! session
           }

@@ -17,11 +17,16 @@ object GrpcProtocol {
     type Components = GrpcComponents
 
     def protocolClass: Class[io.gatling.core.protocol.Protocol] =
-      classOf[GrpcProtocol].asInstanceOf[Class[io.gatling.core.protocol.Protocol]]
+      classOf[GrpcProtocol]
+        .asInstanceOf[Class[io.gatling.core.protocol.Protocol]]
 
-    def defaultProtocolValue(configuration: GatlingConfiguration): GrpcProtocol = GrpcProtocol(configuration)
+    def defaultProtocolValue(
+        configuration: GatlingConfiguration): GrpcProtocol =
+      GrpcProtocol(configuration)
 
-    def newComponents(system: ActorSystem, coreComponents: CoreComponents): GrpcProtocol => GrpcComponents =
+    def newComponents(
+        system: ActorSystem,
+        coreComponents: CoreComponents): GrpcProtocol => GrpcComponents =
       GrpcComponents
   }
 }
