@@ -6,7 +6,8 @@ import scala.language.implicitConversions
 
 object GrpcProtocolBuilder {
 
-  implicit def toGrpcProtocol(builder: GrpcProtocolBuilder): GrpcProtocol = builder.build()
+  implicit def toGrpcProtocol(builder: GrpcProtocolBuilder): GrpcProtocol =
+    builder.build()
 
   def apply(configuration: GatlingConfiguration): GrpcProtocolBuilder =
     GrpcProtocolBuilder(GrpcProtocol(configuration))

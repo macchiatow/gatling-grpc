@@ -6,7 +6,8 @@ lazy val gatlingVersion = "2.3.1"
 val commonSettings = Seq(
   name := "gatling-grpc",
   organization := "me.macchiatow",
-  version := gatlingVersion
+  version := gatlingVersion,
+  scalafmtOnCompile := true
 )
 
 import scalapb.compiler.Version.scalapbVersion
