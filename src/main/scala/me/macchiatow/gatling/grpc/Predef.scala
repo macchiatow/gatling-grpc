@@ -13,6 +13,6 @@ object Predef {
   def grpc(implicit configuration: GatlingConfiguration) = GrpcProtocolBuilder(configuration)
 
   def grpc[ReqT <: GenM, ResT <: GenM](requestName: Expression[String])(implicit reqT: ClassTag[ReqT]) =
-    new GrpcActionBuilder[ReqT, ResT](requestName)
+    GrpcActionBuilder[ReqT, ResT](requestName)
 
 }
