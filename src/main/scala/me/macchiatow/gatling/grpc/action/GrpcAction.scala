@@ -13,7 +13,6 @@ import io.gatling.core.stats.message.ResponseTimings
 import io.gatling.core.util.NameGen
 import io.grpc.CallOptions
 import io.grpc.stub.ClientCalls
-import me.macchiatow.gatling.grpc.action.GrpcActionBuilder.GrpcRequestAttributes
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

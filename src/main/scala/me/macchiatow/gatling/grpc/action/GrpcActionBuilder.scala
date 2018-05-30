@@ -6,7 +6,6 @@ import io.gatling.core.action.builder.ActionBuilder
 import io.gatling.core.session.Expression
 import io.gatling.core.structure.ScenarioContext
 import io.grpc.{ManagedChannel, ManagedChannelBuilder, MethodDescriptor}
-import me.macchiatow.gatling.grpc.action.GrpcActionBuilder.GrpcRequestAttributes
 import me.macchiatow.gatling.grpc.protocol.{GrpcComponents, GrpcProtocol}
 
 import scala.reflect.ClassTag
@@ -43,11 +42,8 @@ case class GrpcActionBuilder[ReqT <: GenM, ResT <: GenM](requestName: Expression
   }
 }
 
-object GrpcActionBuilder {
-
-  case class GrpcRequestAttributes[ReqT, ResT](requestName: Expression[String],
-                                               request: Expression[GenM],
-                                               methodDescriptor: MethodDescriptor[ReqT, ResT],
-                                               doAsync: Boolean,
-                                               channel: ManagedChannel)
-}
+case class GrpcRequestAttributes[ReqT, ResT](requestName: Expression[String],
+                                             request: Expression[GenM],
+                                             methodDescriptor: MethodDescriptor[ReqT, ResT],
+                                             doAsync: Boolean,
+                                             channel: ManagedChannel)
